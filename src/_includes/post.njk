@@ -1,0 +1,19 @@
+---
+layout: base.njk
+---
+<article>
+  <h1>{{ title }}</h1>
+  <p class="meta">
+    <time datetime="{{ page.date | isoDate }}">{{ page.date | readableDate }}</time>
+    {%- for slug in categories %} · <a href="/category/{{ slug }}/">{{ categoryNames[slug] or slug }}</a>{% endfor %}
+  </p>
+  {{ content | safe }}
+</article>
+{%- set prev = collections.post | getPreviousCollectionItem %}
+{%- set next = collections.post | getNextCollectionItem %}
+{%- if prev or next %}
+<nav class="pager">
+  {% if prev %}<a href="{{ prev.url }}">← {{ prev.data.title }}</a>{% endif %}
+  {% if next %}<a class="next" href="{{ next.url }}">{{ next.data.title }} →</a>{% endif %}
+</nav>
+{%- endif %}

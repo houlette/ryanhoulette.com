@@ -1,0 +1,117 @@
+:root {
+  --bg: #fbfaf7;
+  --text: #22252a;
+  --muted: #646a73;
+  --accent: #a4441f;
+  --rule: #e3dfd6;
+  --measure: 40rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16191d;
+    --text: #e6e3dc;
+    --muted: #9aa1aa;
+    --accent: #e98a5f;
+    --rule: #2c3138;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 1.125rem/1.6 Charter, "Bitstream Charter", "Iowan Old Style", Georgia, serif;
+}
+
+a { color: var(--accent); text-underline-offset: 0.15em; }
+
+.masthead, main, footer {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.masthead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 1rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1rem;
+}
+
+.site-title {
+  color: var(--text);
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.tagline { margin: 0; color: var(--muted); }
+
+.masthead nav {
+  display: flex;
+  gap: 1rem;
+  margin-left: auto;
+  font-family: system-ui, sans-serif;
+  font-size: 0.95rem;
+}
+
+.banner {
+  display: block;
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
+  margin: 0 auto 2rem;
+}
+
+h1 { font-size: 1.9rem; line-height: 1.2; margin: 0 0 0.25rem; }
+
+.meta, time, footer {
+  color: var(--muted);
+  font-family: system-ui, sans-serif;
+  font-size: 0.9rem;
+}
+
+.meta { margin-top: 0; margin-bottom: 1.5rem; }
+
+.post-list { list-style: none; padding: 0; margin: 0; }
+
+.post-list li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.video {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin: 1.5rem 0;
+}
+
+.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+audio { display: block; width: 100%; margin: 1rem 0; }
+
+.pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-family: system-ui, sans-serif;
+  font-size: 0.95rem;
+}
+
+.pager .next { margin-left: auto; text-align: right; }
+
+footer { margin-top: 4rem; padding-bottom: 2rem; }
