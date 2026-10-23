@@ -14,8 +14,10 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy("src/wp-content");
   eleventyConfig.addPassthroughCopy("src/media");
+  eleventyConfig.addPassthroughCopy("src/images");
   eleventyConfig.addPassthroughCopy("src/style.css");
   eleventyConfig.addPassthroughCopy("src/CNAME");
+  eleventyConfig.addPassthroughCopy("src/favicon.svg");
 
   eleventyConfig.addShortcode(
     "youtube",
@@ -33,11 +35,28 @@ export default function (eleventyConfig) {
     date.toLocaleDateString("en-US", { timeZone: "UTC", year: "numeric", month: "long", day: "numeric" }),
   );
   eleventyConfig.addFilter("isoDate", (date) => date.toISOString().slice(0, 10));
+  eleventyConfig.addFilter("shortDate", (date) =>
+    date.toLocaleDateString("en-US", { timeZone: "UTC", month: "short", day: "numeric" }),
+  );
+  eleventyConfig.addFilter("toAbsolute", (url) => new URL(url, site.url).href);
+
+  // Posts arrive newest first; keep that order within each year.
+  eleventyConfig.addFilter("byYear", (posts) => {
+    const groups = [];
+    for (const post of posts) {
+      const year = post.date.getUTCFullYear();
+      if (groups.at(-1)?.year !== year) groups.push({ year, posts: [] });
+      groups.at(-1).posts.push(post);
+    }
+    return groups;
+  });
 
   eleventyConfig.addCollection("categoryList", (api) => {
     const slugs = new Set(api.getFilteredByTag("post").flatMap((post) => post.data.categories || []));
     return [...slugs].sort();
   });
+  // The home page highlights whichever post has `featured: true` in its front matter.
+  eleventyConfig.addFilter("featuredPost", (posts) => posts.find((post) => post.data.featured));
   eleventyConfig.addFilter("inCategory", (posts, slug) =>
     posts.filter((post) => (post.data.categories || []).includes(slug)),
   );

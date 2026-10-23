@@ -2,6 +2,8 @@
 title: "Grand Canyon"
 date: "2017-02-12T01:09:57"
 categories: ["demo"]
+featured: true
+teaser: "I am not a man who picks fights"
 permalink: "/2017/02/12/grand-canyon/"
 ---
 

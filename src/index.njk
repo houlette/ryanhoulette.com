@@ -1,11 +1,27 @@
 ---
 layout: base.njk
 ---
-<ul class="post-list">
-{%- for post in collections.post | reverse %}
-  <li>
-    <a href="{{ post.url }}">{{ post.data.title }}</a>
-    <time datetime="{{ post.date | isoDate }}">{{ post.date | readableDate }}</time>
-  </li>
-{%- endfor %}
-</ul>
+<p class="intro">Original folk rock from the Boston area: songs in progress, demos, lyrics, and notes on writing and recording. <a href="/bio/">More about me</a>.</p>
+
+{%- set featured = collections.post | featuredPost %}
+{%- if featured %}
+<a class="featured" href="{{ featured.url }}">
+  <span class="eyebrow">Featured song</span>
+  <span class="featured-title">{{ featured.data.title }}</span>
+  {%- if featured.data.teaser %}
+  <span class="featured-teaser">{{ featured.data.teaser }}</span>
+  {%- endif %}
+  <span class="featured-cta">Listen</span>
+</a>
+{%- endif %}
+
+<nav class="topics" aria-label="Topics">
+  <ul class="tags">
+  {%- for slug in collections.categoryList %}
+    <li><a href="/category/{{ slug }}/">{{ categoryNames[slug] or slug }}</a></li>
+  {%- endfor %}
+  </ul>
+</nav>
+
+{%- set posts = collections.post | reverse %}
+{% include "post-list.njk" %}
