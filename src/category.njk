@@ -8,12 +8,9 @@ permalink: "/category/{{ category }}/"
 eleventyComputed:
   title: "{{ categoryNames[category] or category }}"
 ---
-<h1>{{ title }}</h1>
-<ul class="post-list">
-{%- for post in collections.post | inCategory(category) | reverse %}
-  <li>
-    <a href="{{ post.url }}">{{ post.data.title }}</a>
-    <time datetime="{{ post.date | isoDate }}">{{ post.date | readableDate }}</time>
-  </li>
-{%- endfor %}
-</ul>
+<header class="post-header">
+  <p class="eyebrow"><a href="/">All posts</a></p>
+  <h1>{{ title }}</h1>
+</header>
+{%- set posts = collections.post | inCategory(category) | reverse %}
+{% include "post-list.njk" %}
